@@ -1,0 +1,46 @@
+@startuml
+
+class Cliente {
+    - nombre: String
+    - correo: String
+    - direccion: String
+    - historialPedidos: List<Pedido>
+    + agregarPedido(p: Pedido): void
+}
+
+class Producto {
+    - nombre: String
+    - descripcion: String
+    - precio: double
+    - cantidadDisponible: int
+    + reducirInventario(cantidad: int): void
+}
+
+class Pedido {
+    - cliente: Cliente
+    - productos: List<Producto>
+    - estado: String
+    - pago: Pago
+    - envio: Envio
+    + agregarProducto(p: Producto): void
+    + calcularTotal(): double
+}
+
+class Pago {
+    - metodo: String
+    - monto: double
+    - realizado: boolean
+}
+
+class Envio {
+    - direccion: String
+    - estadoEnvio: String
+    - numeroSeguimiento: String
+}
+
+Cliente "1" --> "*" Pedido
+Pedido "1" --> "*" Producto
+Pedido "1" --> "1" Pago
+Pedido "1" --> "1" Envio
+
+@enduml
